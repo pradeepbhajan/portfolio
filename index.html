@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Full Stack Developer & IT Freelancer</title>
+  <meta name="description" content="Freelance Full Stack Developer from India — building fast, scalable web apps, APIs, and cloud solutions for startups and businesses." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#hero" class="nav__logo">Bh.prdp<span>.</span></a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#portfolio">Projects</a></li>
+        <li><a href="#work">Results</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="btn btn--sm btn--primary">Hire Me</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__bg-grid"></div>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <span class="badge"><span class="badge__dot"></span>Open to Freelance Projects</span>
+        <h1>I Build Software That <br/><span class="gradient-text">Actually Ships</span></h1>
+        <p class="hero__sub">Freelance Full Stack Developer from India — I turn your ideas into production-ready web apps, REST APIs, and cloud-deployed products. Fast, clean, and scalable.</p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary btn--lg">Hire Me →</a>
+          <a href="#portfolio" class="btn btn--ghost btn--lg">View Projects</a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat"><strong>35+</strong><span>Projects Delivered</span></div>
+          <div class="stat__divider"></div>
+          <div class="stat"><strong>99.9%</strong><span>Uptime SLA</span></div>
+          <div class="stat__divider"></div>
+          <div class="stat"><strong>4 Yrs</strong><span>Experience</span></div>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__card glass-card">
+          <div class="card__header">
+            <div class="avatar avatar--gradient"></div>
+            <div>
+              <p class="card__name">ecommerce-api-v2</p>
+              <p class="card__handle">Node.js · AWS · Last Deploy</p>
+            </div>
+            <span class="card__live">LIVE</span>
+          </div>
+          <div class="card__metrics">
+            <div class="metric"><span class="metric__val">2.1M</span><span class="metric__label">API Calls/day</span></div>
+            <div class="metric"><span class="metric__val">98ms</span><span class="metric__label">Avg Response</span></div>
+            <div class="metric"><span class="metric__val">99.97%</span><span class="metric__label">Uptime</span></div>
+          </div>
+          <div class="card__bar"><div class="bar__fill" style="width:92%"></div></div>
+          <p class="card__note">Sprint 4 complete — 92% of milestones shipped</p>
+        </div>
+        <div class="hero__floating-tags">
+          <span class="ftag">⚛️ React</span>
+          <span class="ftag">🟢 Node.js</span>
+          <span class="ftag">☁️ AWS</span>
+          <span class="ftag">🐳 Docker</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about">
+    <div class="container about__inner">
+      <div class="about__img-wrap">
+        <div class="about__img-box" id="profileImgBox">
+          <img src="" alt="Profile Photo" id="profileImg" class="about__img hidden" />
+          <div class="about__img-placeholder" id="profilePlaceholder">
+            <div class="upload-icon">📸</div>
+            <p>Click to upload your photo</p>
+            <span>JPG, PNG up to 5MB</span>
+            <input type="file" id="profileUpload" accept="image/*" />
+          </div>
+        </div>
+        <div class="about__badges">
+          <div class="about__badge"><strong>📍 India</strong><span>Remote-first, Worldwide</span></div>
+          <div class="about__badge"><strong>⚡ 4hr Response</strong><span>Weekdays</span></div>
+        </div>
+      </div>
+      <div class="about__content">
+        <p class="section__label">About Me</p>
+        <h2>I write code that <span class="gradient-text">solves real problems</span></h2>
+        <p>I'm a Full Stack Developer with 4+ years of experience building production-grade web applications, REST APIs, and cloud infrastructure. I've worked with startups, agencies, and product companies across India and internationally.</p>
+        <p>I care about clean architecture, readable code, and shipping on time. Whether it's a React frontend, a Node.js backend, or a full AWS deployment — I own the entire stack end to end.</p>
+        <div class="skills">
+          <p class="skills__title">Core Skills</p>
+          <div class="skill"><div class="skill__info"><span>React / Next.js</span><span>92%</span></div><div class="skill__bar"><div class="skill__fill" data-width="92"></div></div></div>
+          <div class="skill"><div class="skill__info"><span>Node.js / Express</span><span>90%</span></div><div class="skill__bar"><div class="skill__fill" data-width="90"></div></div></div>
+          <div class="skill"><div class="skill__info"><span>TypeScript</span><span>88%</span></div><div class="skill__bar"><div class="skill__fill" data-width="88"></div></div></div>
+          <div class="skill"><div class="skill__info"><span>PostgreSQL / MongoDB</span><span>85%</span></div><div class="skill__bar"><div class="skill__fill" data-width="85"></div></div></div>
+          <div class="skill"><div class="skill__info"><span>AWS / Docker / CI-CD</span><span>80%</span></div><div class="skill__bar"><div class="skill__fill" data-width="80"></div></div></div>
+          <div class="skill"><div class="skill__info"><span>System Design</span><span>78%</span></div><div class="skill__bar"><div class="skill__fill" data-width="78"></div></div></div>
+        </div>
+        <div class="tools-list">
+          <span class="tool-tag">React</span>
+          <span class="tool-tag">Node.js</span>
+          <span class="tool-tag">TypeScript</span>
+          <span class="tool-tag">PostgreSQL</span>
+          <span class="tool-tag">MongoDB</span>
+          <span class="tool-tag">Docker</span>
+          <span class="tool-tag">AWS</span>
+          <span class="tool-tag">Git</span>
+          <span class="tool-tag">Figma</span>
+          <span class="tool-tag">Postman</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services section" id="services">
+    <div class="container">
+      <p class="section__label center">What I Do</p>
+      <h2 class="center">Services built for <span class="gradient-text">modern products</span></h2>
+      <div class="services__grid">
+        <div class="service-card"><div class="service-card__icon">🖥️</div><h3>Full Stack Web App</h3><p>End-to-end development — React/Next.js frontend, Node.js or Python backend, database design, and cloud deployment. Production-ready, not a prototype.</p><p class="service-card__price">Starting ₹40,000</p></div>
+        <div class="service-card service-card--featured"><div class="service-card__badge">Most Popular</div><div class="service-card__icon">⚡</div><h3>REST API Development</h3><p>Scalable, well-documented APIs built with Node.js or Python (FastAPI/Django). Auth, rate limiting, error handling, and Swagger docs included.</p><p class="service-card__price">Starting ₹25,000</p></div>
+        <div class="service-card"><div class="service-card__icon">⚛️</div><h3>Frontend (React / Next.js)</h3><p>Pixel-perfect, performant UIs from Figma or wireframes. SSR, SEO optimization, and smooth animations. Lighthouse score 90+ guaranteed.</p><p class="service-card__price">Starting ₹20,000</p></div>
+        <div class="service-card"><div class="service-card__icon">🗄️</div><h3>Database Design & Optimization</h3><p>Schema design, query optimization, indexing strategy, and migrations for PostgreSQL, MySQL, or MongoDB. Slow queries fixed fast.</p><p class="service-card__price">Starting ₹12,000</p></div>
+        <div class="service-card"><div class="service-card__icon">☁️</div><h3>Cloud Deployment & DevOps</h3><p>Docker containerization, AWS/GCP setup, CI/CD pipelines with GitHub Actions, SSL, domain config, and monitoring. Your app, always up.</p><p class="service-card__price">Starting ₹18,000</p></div>
+        <div class="service-card"><div class="service-card__icon">🔍</div><h3>Code Review & Tech Audit</h3><p>Deep review of your existing codebase — security vulnerabilities, performance bottlenecks, architecture issues, and a prioritized fix list.</p><p class="service-card__price">Starting ₹8,000</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section class="portfolio section" id="portfolio">
+    <div class="container">
+      <p class="section__label center">My Work</p>
+      <h2 class="center">Projects & <span class="gradient-text">Screenshots</span></h2>
+      <p class="center portfolio__sub">A look at what I've built — apps, dashboards, APIs, and more</p>
+
+      <!-- ADMIN UPLOAD PANEL — always visible -->
+      <div class="portfolio__admin" id="portfolioAdmin">
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-zone__icon">⬆️</div>
+          <p class="upload-zone__title">Drag & drop your screenshots here</p>
+          <p class="upload-zone__sub">JPG, PNG, GIF up to 10MB each</p>
+          <button class="btn btn--ghost" id="uploadBtn">Browse Files</button>
+          <input type="file" id="portfolioUpload" accept="image/*" multiple hidden />
+        </div>
+        <div class="portfolio__admin-actions">
+          <button class="btn btn--primary" id="saveToSiteBtn">🔄 Refresh Images</button>
+          <button class="btn btn--ghost" id="clearAllBtn">🗑 Sab Delete Karo</button>
+        </div>
+        <p class="portfolio__admin-note">
+          ✅ Images <strong style="color:var(--accent2)">server pe save hoti hain</strong> — sab devices pe automatically dikhti hain. Upload karo aur ho gaya.
+        </p>
+      </div>
+
+      <div class="portfolio__filters" id="portfolioFilters" style="display:none">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="instagram">Web Apps</button>
+        <button class="filter-btn" data-filter="ads">APIs</button>
+        <button class="filter-btn" data-filter="analytics">Dashboards</button>
+        <button class="filter-btn" data-filter="content">Mobile</button>
+      </div>
+
+      <div class="portfolio__grid" id="portfolioGrid">
+        <div class="portfolio__empty" id="portfolioEmpty">
+          <p>No projects added yet ✨</p>
+        </div>
+      </div>
+    </div>
+  </section>    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="process section" id="process">
+    <div class="container">
+      <p class="section__label center">My Process</p>
+      <h2 class="center">How I turn your idea into a <span class="gradient-text">shipped product</span></h2>
+      <div class="process__grid">
+        <div class="process-step">
+          <div class="process-step__num">01</div>
+          <div class="process-step__icon">🎯</div>
+          <h3>Discovery Call</h3>
+          <p>We talk through your requirements, tech stack preferences, timeline, and budget. I ask the hard questions upfront so there are no surprises later.</p>
+        </div>
+        <div class="process-step__arrow">→</div>
+        <div class="process-step">
+          <div class="process-step__num">02</div>
+          <div class="process-step__icon">📐</div>
+          <h3>Scope & Proposal</h3>
+          <p>I send a detailed technical proposal — architecture diagram, milestones, deliverables, and a fixed-price quote. No hourly billing surprises.</p>
+        </div>
+        <div class="process-step__arrow">→</div>
+        <div class="process-step">
+          <div class="process-step__num">03</div>
+          <div class="process-step__icon">⚙️</div>
+          <h3>Build & Review</h3>
+          <p>I build in sprints with weekly demos. You get a staging URL from day one. Feedback loops are short — no waiting weeks to see progress.</p>
+        </div>
+        <div class="process-step__arrow">→</div>
+        <div class="process-step">
+          <div class="process-step__num">04</div>
+          <div class="process-step__icon">🚀</div>
+          <h3>Deploy & Handoff</h3>
+          <p>Production deployment, documentation, code walkthrough, and 30 days of free bug fixes. You own everything — code, infra, and docs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="techstack section" id="techstack">
+    <div class="container">
+      <p class="section__label center">Tech Stack</p>
+      <h2 class="center">Tools I use to <span class="gradient-text">build production systems</span></h2>
+      <div class="techstack__grid">
+        <div class="tech-group">
+          <p class="tech-group__label">Frontend</p>
+          <div class="tech-tags">
+            <span class="tech-tag">⚛️ React</span>
+            <span class="tech-tag">▲ Next.js</span>
+            <span class="tech-tag">🔷 TypeScript</span>
+            <span class="tech-tag">🎨 Tailwind CSS</span>
+            <span class="tech-tag">⚡ Vite</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <p class="tech-group__label">Backend</p>
+          <div class="tech-tags">
+            <span class="tech-tag">🟢 Node.js</span>
+            <span class="tech-tag">🐍 Python</span>
+            <span class="tech-tag">🚂 Express</span>
+            <span class="tech-tag">⚡ FastAPI</span>
+            <span class="tech-tag">🔐 JWT / OAuth</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <p class="tech-group__label">Database</p>
+          <div class="tech-tags">
+            <span class="tech-tag">🐘 PostgreSQL</span>
+            <span class="tech-tag">🍃 MongoDB</span>
+            <span class="tech-tag">🔴 Redis</span>
+            <span class="tech-tag">🗃️ MySQL</span>
+            <span class="tech-tag">📊 Prisma ORM</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <p class="tech-group__label">Cloud & DevOps</p>
+          <div class="tech-tags">
+            <span class="tech-tag">☁️ AWS</span>
+            <span class="tech-tag">🐳 Docker</span>
+            <span class="tech-tag">⚙️ GitHub Actions</span>
+            <span class="tech-tag">🌐 Nginx</span>
+            <span class="tech-tag">📈 Grafana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="work section" id="work">
+    <div class="container">
+      <p class="section__label center">Case Studies</p>
+      <h2 class="center">Real results from <span class="gradient-text">real projects</span></h2>
+      <div class="work__grid">
+        <div class="case-card"><div class="case-card__tag">E-commerce · SaaS · Mumbai</div><h3>ShopFlow Platform</h3><p>Built a multi-vendor e-commerce platform from scratch — React frontend, Node.js microservices, PostgreSQL, and AWS deployment. Handles 50K+ daily active users.</p><div class="case-card__results"><div class="result"><strong>50K+</strong><span>Daily Users</span></div><div class="result"><strong>98ms</strong><span>API Response</span></div><div class="result"><strong>0</strong><span>Downtime Days</span></div></div></div>
+        <div class="case-card"><div class="case-card__tag">Fintech · Startup · Bangalore</div><h3>PayTrack Dashboard</h3><p>Real-time financial analytics dashboard with WebSocket updates, complex SQL aggregations, and role-based access control. Reduced reporting time by 80%.</p><div class="case-card__results"><div class="result"><strong>-80%</strong><span>Report Time</span></div><div class="result"><strong>2M+</strong><span>Txns Processed</span></div><div class="result"><strong>100%</strong><span>Audit Pass</span></div></div></div>
+        <div class="case-card"><div class="case-card__tag">EdTech · Pan-India</div><h3>LearnPath LMS</h3><p>Full LMS with video streaming, quiz engine, progress tracking, and Razorpay payment integration. Scaled from 0 to 12,000 students in 6 months.</p><div class="case-card__results"><div class="result"><strong>12K+</strong><span>Students</span></div><div class="result"><strong>6 mo</strong><span>Time to Scale</span></div><div class="result"><strong>4.9★</strong><span>App Rating</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section" id="testimonials">
+    <div class="container">
+      <p class="section__label center">Client Reviews</p>
+      <h2 class="center">What clients <span class="gradient-text">say about working with me</span></h2>
+      <div class="testimonials__grid">
+        <div class="testi-card"><div class="testi-card__stars">★★★★★</div><p>"Delivered the entire backend API in 3 weeks — clean code, great documentation, and zero bugs in production. Will definitely hire again for our next sprint."</p><div class="testi-card__author"><div class="testi-avatar av1"></div><div><strong>Arjun Kapoor</strong><span>CTO, ShopFlow</span></div></div></div>
+        <div class="testi-card"><div class="testi-card__stars">★★★★★</div><p>"We had a legacy PHP codebase that was a nightmare. He migrated it to Node.js + React in 6 weeks with zero data loss. The performance improvement was night and day."</p><div class="testi-card__author"><div class="testi-avatar av2"></div><div><strong>Divya Nair</strong><span>Founder, PayTrack</span></div></div></div>
+        <div class="testi-card"><div class="testi-card__stars">★★★★★</div><p>"Best freelancer I've worked with. He asked the right questions upfront, flagged potential issues early, and shipped exactly what we discussed. Rare to find."</p><div class="testi-card__author"><div class="testi-avatar av3"></div><div><strong>Rohan Verma</strong><span>Product Manager, LearnPath</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq section" id="faq">
+    <div class="container">
+      <p class="section__label center">FAQ</p>
+      <h2 class="center">Questions clients <span class="gradient-text">always ask</span></h2>
+      <div class="faq__list">
+        <div class="faq-item">
+          <button class="faq-item__q">How long does a typical project take? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>A simple REST API or landing page takes 1–2 weeks. A full-stack web app with auth, database, and deployment typically takes 4–8 weeks. I'll give you a precise timeline in the proposal after our discovery call.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__q">Do you work on fixed price or hourly? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>Fixed price for well-defined projects — you know exactly what you're paying upfront. For ongoing work or projects with evolving scope, I offer a monthly retainer. No surprise invoices.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__q">What happens after the project is delivered? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>You get 30 days of free bug fixes after delivery. After that, I offer maintenance retainers starting at ₹8,000/month. You also get full source code, documentation, and a handoff call.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__q">Do you sign NDAs or contracts? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>Yes, always. Every project starts with a signed contract covering scope, payment terms, IP ownership, and confidentiality. Your idea is safe.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__q">Can you work with my existing codebase? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>Absolutely. I do legacy code migrations, feature additions, and performance audits on existing projects. I'll do a free 30-minute code review before committing to any existing codebase work.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__q">What's your payment structure? <span class="faq-item__icon">+</span></button>
+          <div class="faq-item__a"><p>50% upfront, 50% on delivery for projects under ₹50,000. For larger projects, we split into 3 milestones: 40% start, 30% mid, 30% delivery. UPI, bank transfer, and Razorpay accepted.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact section" id="contact">
+    <div class="container contact__inner">
+      <div class="contact__text">
+        <p class="section__label">Get In Touch</p>
+        <h2>Got a project? <span class="gradient-text">Let's build it.</span></h2>
+        <p>Share your idea and I'll get back with a technical breakdown, timeline, and quote — usually within a few hours. No fluff, just clarity.</p>
+        <div class="contact__links">
+          <a href="mailto:prajanpradeep6@gmail.com" class="contact__link"><span class="contact__link-icon">📧</span><div><strong>Email Me</strong><span>prajanpradeep6@gmail.com</span></div></a>
+          <a href="https://wa.me/919682046956" class="contact__link" target="_blank" rel="noopener"><span class="contact__link-icon">💬</span><div><strong>WhatsApp</strong><span>+91 96820 46956</span></div></a>
+          <a href="https://www.linkedin.com/in/pradeep-kumar-64204937b/" class="contact__link" target="_blank" rel="noopener"><span class="contact__link-icon">🔗</span><div><strong>LinkedIn</strong><span>View Profile</span></div></a>
+          <a href="https://github.com/pradeepbhajan" class="contact__link" target="_blank" rel="noopener"><span class="contact__link-icon">🐙</span><div><strong>GitHub</strong><span>View Repositories</span></div></a>
+        </div>
+      </div>
+      <form class="contact__form" id="contactForm" name="contact" method="POST" action="https://formspree.io/f/mqejdqvw" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="_replyto" value="pradeepbhajan6@gmail.com" />
+        <input type="hidden" name="_subject" value="New Project Inquiry — Portfolio" />
+        <p style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <div class="form__row">
+          <div class="form__group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Rahul Mehta" required /></div>
+          <div class="form__group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="rahul@brand.com" required /></div>
+        </div>
+        <div class="form__group"><label for="brand">Company / Project Name</label><input type="text" id="brand" name="brand" placeholder="Your Startup or Project" /></div>
+        <div class="form__group">
+          <label for="service">Service Needed</label>
+          <select id="service" name="service">
+            <option value="">Select a service...</option>
+            <option>Full Stack Web App</option>
+            <option>REST API Development</option>
+            <option>Frontend (React / Next.js)</option>
+            <option>Backend (Node.js / Python)</option>
+            <option>Database Design</option>
+            <option>Cloud Deployment (AWS / GCP)</option>
+            <option>Code Review & Audit</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form__group"><label for="message">Describe your project</label><textarea id="message" name="message" rows="4" placeholder="What are you building? Tech stack, timeline, budget — the more detail, the better."></textarea></div>
+        <button type="submit" class="btn btn--primary btn--full">Send Project Brief →</button>
+        <p class="form__note">⚡ I typically respond within 4 hours on weekdays.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#hero" class="nav__logo">Bh.prdp<span>.</span></a>
+        <p>Full Stack Developer · Freelancer · India</p>
+      </div>
+      <div class="footer__links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Projects</a>
+        <a href="#work">Results</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© 2026 · Your Name · Full Stack Developer · India</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose">✕</button>
+    <button class="lightbox__prev" id="lightboxPrev">‹</button>
+    <button class="lightbox__next" id="lightboxNext">›</button>
+    <img src="" alt="" id="lightboxImg" />
+    <div class="lightbox__caption" id="lightboxCaption"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="live-editor.js"></script>
+</body>
+</html>

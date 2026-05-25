@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#07070f;--surface:#0f0f1a;--surface2:#161625;--surface3:#1e1e30;
+      --border:#252538;--accent:#7c5cfc;--accent2:#a78bfa;--text:#e2e2f0;
+      --muted:#7878a0;--green:#10b981;--red:#ef4444;--font:'Inter',sans-serif;
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+    /* TOP BAR */
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;gap:12px;flex-wrap:wrap}
+    .topbar__title{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px}
+    .topbar__title span{color:var(--accent2)}
+    .topbar__actions{display:flex;gap:10px;align-items:center}
+    .saved-badge{font-size:0.75rem;color:var(--green);opacity:0;transition:0.3s}
+    .saved-badge.show{opacity:1}
+
+    /* LAYOUT */
+    .layout{display:grid;grid-template-columns:340px 1fr;flex:1;overflow:hidden}
+
+    /* SIDEBAR */
+    .sidebar{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+    .sidebar::-webkit-scrollbar{width:4px}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+    /* TABS */
+    .tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto}
+    .tab{padding:10px 14px;font-size:0.78rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:0.2s}
+    .tab.active{color:var(--accent2);border-bottom-color:var(--accent)}
+    .tab:hover{color:var(--text)}
+
+    /* PANELS */
+    .panel{display:none;padding:16px;flex-direction:column;gap:14px}
+    .panel.active{display:flex}
+
+    /* FIELD */
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field label{font-size:0.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+    .field input,.field textarea,.field select{
+      background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+      padding:9px 12px;color:var(--text);font-family:var(--font);font-size:0.85rem;
+      transition:0.2s;resize:vertical;width:100%
+    }
+    .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,92,252,0.15)}
+    .field input[type=color]{padding:4px 8px;height:38px;cursor:pointer}
+    .field input::placeholder,.field textarea::placeholder{color:#3a3a58}
+
+    /* SECTION HEADER */
+    .sec-header{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);padding:4px 0 2px;border-bottom:1px solid var(--border);margin-bottom:2px}
+
+    /* CARD ITEM (for repeatable items) */
+    .item-list{display:flex;flex-direction:column;gap:8px}
+    .item-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;position:relative}
+    .item-card__header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px}
+    .item-card__title{font-size:0.82rem;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item-card__actions{display:flex;gap:4px;flex-shrink:0}
+    .item-card__body{display:none;flex-direction:column;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+    .item-card.open .item-card__body{display:flex}
+    .item-card__toggle{color:var(--muted);font-size:0.7rem;transition:0.2s}
+    .item-card.open .item-card__toggle{transform:rotate(180deg)}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:0.2s;text-decoration:none}
+    .btn--primary{background:var(--accent);color:white}
+    .btn--primary:hover{background:#6b4de6}
+    .btn--ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn--ghost:hover{border-color:var(--accent);color:var(--accent2)}
+    .btn--danger{background:rgba(239,68,68,0.15);color:var(--red);border:1px solid rgba(239,68,68,0.2)}
+    .btn--danger:hover{background:rgba(239,68,68,0.25)}
+    .btn--green{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid rgba(16,185,129,0.2)}
+    .btn--green:hover{background:rgba(16,185,129,0.25)}
+    .btn--sm{padding:5px 10px;font-size:0.75rem}
+    .btn--full{width:100%;justify-content:center}
+    .btn--icon{padding:5px 8px;font-size:0.8rem}
+
+    /* COLOR ROW */
+    .color-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    /* PREVIEW */
+    .preview{background:#000;overflow:hidden;position:relative}
+    .preview iframe{width:100%;height:100%;border:none;transform-origin:top left}
+    .preview__toolbar{position:absolute;bottom:16px;right:16px;display:flex;gap:8px;z-index:10}
+    .preview__btn{background:rgba(15,15,26,0.9);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;font-family:var(--font);transition:0.2s}
+    .preview__btn:hover{border-color:var(--accent);color:var(--accent2)}
+    .preview__btn.active{background:var(--accent);border-color:var(--accent);color:white}
+
+    /* DRAG HANDLE */
+    .drag-handle{cursor:grab;color:var(--muted);font-size:0.8rem;padding:2px 4px}
+    .drag-handle:active{cursor:grabbing}
+
+    /* TOGGLE SWITCH */
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .toggle-row label{font-size:0.82rem;color:var(--text)}
+    .toggle{position:relative;width:36px;height:20px;flex-shrink:0}
+    .toggle input{opacity:0;width:0;height:0}
+    .toggle__slider{position:absolute;inset:0;background:var(--border);border-radius:100px;cursor:pointer;transition:0.2s}
+    .toggle__slider::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:white;border-radius:50%;transition:0.2s}
+    .toggle input:checked+.toggle__slider{background:var(--accent)}
+    .toggle input:checked+.toggle__slider::before{transform:translateX(16px)}
+
+    /* RANGE */
+    .range-row{display:flex;align-items:center;gap:10px}
+    .range-row input[type=range]{flex:1;accent-color:var(--accent)}
+    .range-val{font-size:0.8rem;color:var(--accent2);min-width:32px;text-align:right}
+
+    /* STAT GRID */
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__title">⚙️ Portfolio <span>Editor</span></div>
+  <div class="topbar__actions">
+    <span class="saved-badge" id="savedBadge">✓ Saved</span>
+    <button class="btn btn--ghost btn--sm" id="resetBtn">↺ Reset</button>
+    <button class="btn btn--ghost btn--sm" id="previewNewTab">↗ Open Site</button>
+    <button class="btn btn--primary btn--sm" id="exportBtn">⬇ Export HTML</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="general">General</div>
+      <div class="tab" data-tab="nav">Nav</div>
+      <div class="tab" data-tab="hero">Hero</div>
+      <div class="tab" data-tab="about">About</div>
+      <div class="tab" data-tab="services">Services</div>
+      <div class="tab" data-tab="cases">Results</div>
+      <div class="tab" data-tab="testi">Reviews</div>
+      <div class="tab" data-tab="contact">Contact</div>
+      <div class="tab" data-tab="process">Process</div>
+      <div class="tab" data-tab="techstack">Tech Stack</div>
+      <div class="tab" data-tab="faq">FAQ</div>
+      <div class="tab" data-tab="design">Design</div>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="panel active" id="panel-general">
+      <div class="sec-header">Site Identity</div>
+      <div class="field"><label>Your Name</label><input type="text" data-key="name" placeholder="Priya Sharma" /></div>
+      <div class="field"><label>Nav Logo Text</label><input type="text" data-key="logoText" placeholder="PS" /></div>
+      <div class="field"><label>Page Title (browser tab)</label><input type="text" data-key="pageTitle" placeholder="Priya | SMM for D2D Brands" /></div>
+      <div class="field"><label>Meta Description (SEO)</label><textarea data-key="metaDesc" rows="2" placeholder="Freelance Social Media Manager..."></textarea></div>
+      <div class="sec-header" style="margin-top:8px">Location & Availability</div>
+      <div class="field"><label>Location</label><input type="text" data-key="location" placeholder="Mumbai, India" /></div>
+      <div class="field"><label>Availability Badge Text</label><input type="text" data-key="badgeText" placeholder="Available for Projects" /></div>
+      <div class="field"><label>Response Time</label><input type="text" data-key="responseTime" placeholder="4 hours on weekdays" /></div>
+      <div class="sec-header" style="margin-top:8px">Footer</div>
+      <div class="field"><label>Footer Tagline</label><input type="text" data-key="footerTagline" placeholder="Social Media Manager for D2D Brands · India" /></div>
+      <div class="field"><label>Copyright Year</label><input type="text" data-key="copyrightYear" placeholder="2026" /></div>
+    </div>
+
+    <!-- NAV -->
+    <div class="panel" id="panel-nav">
+      <div class="sec-header">Navigation Links</div>
+      <p style="font-size:0.78rem;color:var(--muted)">Edit label and anchor for each nav item. Toggle to show/hide.</p>
+      <div class="item-list" id="navList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addNavItem">+ Add Nav Item</button>
+    </div>
+
+    <!-- HERO -->
+    <div class="panel" id="panel-hero">
+      <div class="sec-header">Hero Text</div>
+      <div class="field"><label>Headline Line 1</label><input type="text" data-key="heroLine1" placeholder="Social Media That" /></div>
+      <div class="field"><label>Headline Line 2 (gradient)</label><input type="text" data-key="heroLine2" placeholder="Sells Door to Door" /></div>
+      <div class="field"><label>Subheading</label><textarea data-key="heroSub" rows="3" placeholder="I help D2D brands..."></textarea></div>
+      <div class="field"><label>Primary Button Text</label><input type="text" data-key="heroCta1" placeholder="Book a Free Call →" /></div>
+      <div class="field"><label>Secondary Button Text</label><input type="text" data-key="heroCta2" placeholder="See My Work" /></div>
+      <div class="sec-header" style="margin-top:8px">Stats Bar</div>
+      <div class="stat-grid">
+        <div class="field"><label>Stat 1 Value</label><input type="text" data-key="stat1val" placeholder="40+" /></div>
+        <div class="field"><label>Stat 1 Label</label><input type="text" data-key="stat1label" placeholder="D2D Brands" /></div>
+        <div class="field"><label>Stat 2 Value</label><input type="text" data-key="stat2val" placeholder="3.2x" /></div>
+        <div class="field"><label>Stat 2 Label</label><input type="text" data-key="stat2label" placeholder="Avg. ROAS" /></div>
+        <div class="field"><label>Stat 3 Value</label><input type="text" data-key="stat3val" placeholder="5 Yrs" /></div>
+        <div class="field"><label>Stat 3 Label</label><input type="text" data-key="stat3label" placeholder="Experience" /></div>
+      </div>
+      <div class="sec-header" style="margin-top:8px">Analytics Card</div>
+      <div class="field"><label>Account Handle</label><input type="text" data-key="cardHandle" placeholder="@cleanindia_d2d" /></div>
+      <div class="field"><label>Platform</label><input type="text" data-key="cardPlatform" placeholder="Instagram · Last 30 days" /></div>
+      <div class="stat-grid">
+        <div class="field"><label>Metric 1 Value</label><input type="text" data-key="m1val" placeholder="+218%" /></div>
+        <div class="field"><label>Metric 1 Label</label><input type="text" data-key="m1label" placeholder="Reach" /></div>
+        <div class="field"><label>Metric 2 Value</label><input type="text" data-key="m2val" placeholder="+94%" /></div>
+        <div class="field"><label>Metric 2 Label</label><input type="text" data-key="m2label" placeholder="Engagement" /></div>
+        <div class="field"><label>Metric 3 Value</label><input type="text" data-key="m3val" placeholder="₹4.1L" /></div>
+        <div class="field"><label>Metric 3 Label</label><input type="text" data-key="m3label" placeholder="Revenue" /></div>
+      </div>
+      <div class="field"><label>Progress Bar % (0-100)</label>
+        <div class="range-row"><input type="range" min="0" max="100" data-key="cardProgress" /><span class="range-val" id="progressVal">78%</span></div>
+      </div>
+      <div class="field"><label>Card Note</label><input type="text" data-key="cardNote" placeholder="Campaign goal: 78% achieved in 18 days" /></div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="panel" id="panel-about">
+      <div class="sec-header">About Section</div>
+      <div class="field"><label>Section Label</label><input type="text" data-key="aboutLabel" placeholder="About Me" /></div>
+      <div class="field"><label>Heading (normal part)</label><input type="text" data-key="aboutH2a" placeholder="I speak the language of" /></div>
+      <div class="field"><label>Heading (gradient part)</label><input type="text" data-key="aboutH2b" placeholder="Indian D2D customers" /></div>
+      <div class="field"><label>Paragraph 1</label><textarea data-key="aboutP1" rows="3"></textarea></div>
+      <div class="field"><label>Paragraph 2</label><textarea data-key="aboutP2" rows="3"></textarea></div>
+      <div class="sec-header" style="margin-top:8px">Skills</div>
+      <div class="item-list" id="skillList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addSkill">+ Add Skill</button>
+      <div class="sec-header" style="margin-top:8px">Tool Tags</div>
+      <div class="field"><label>Tools (comma separated)</label><input type="text" data-key="tools" placeholder="Canva Pro, Meta Business Suite, ..." /></div>
+      <div class="sec-header" style="margin-top:8px">Badges</div>
+      <div class="field"><label>Badge 1 Title</label><input type="text" data-key="badge1title" placeholder="📍 Mumbai, India" /></div>
+      <div class="field"><label>Badge 1 Subtitle</label><input type="text" data-key="badge1sub" placeholder="Pan-India Projects" /></div>
+      <div class="field"><label>Badge 2 Title</label><input type="text" data-key="badge2title" placeholder="⚡ 4hr Response" /></div>
+      <div class="field"><label>Badge 2 Subtitle</label><input type="text" data-key="badge2sub" placeholder="Weekdays" /></div>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="panel" id="panel-services">
+      <div class="sec-header">Services</div>
+      <p style="font-size:0.78rem;color:var(--muted)">Click a service to expand and edit. Drag to reorder.</p>
+      <div class="item-list" id="serviceList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addService">+ Add Service</button>
+    </div>
+
+    <!-- CASE STUDIES -->
+    <div class="panel" id="panel-cases">
+      <div class="sec-header">Case Studies / Results</div>
+      <div class="item-list" id="caseList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addCase">+ Add Case Study</button>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="panel" id="panel-testi">
+      <div class="sec-header">Testimonials</div>
+      <div class="item-list" id="testiList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addTesti">+ Add Testimonial</button>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="panel" id="panel-contact">
+      <div class="sec-header">Contact Section</div>
+      <div class="field"><label>Section Label</label><input type="text" data-key="contactLabel" placeholder="Get In Touch" /></div>
+      <div class="field"><label>Heading (normal)</label><input type="text" data-key="contactH2a" placeholder="Ready to grow your" /></div>
+      <div class="field"><label>Heading (gradient)</label><input type="text" data-key="contactH2b" placeholder="D2D brand?" /></div>
+      <div class="field"><label>Description</label><textarea data-key="contactDesc" rows="3"></textarea></div>
+      <div class="sec-header" style="margin-top:8px">Contact Links</div>
+      <div class="field"><label>Email</label><input type="text" data-key="contactEmail" placeholder="you@example.com" /></div>
+      <div class="field"><label>WhatsApp Number (with country code)</label><input type="text" data-key="contactWA" placeholder="919999999999" /></div>
+      <div class="field"><label>LinkedIn URL</label><input type="text" data-key="contactLinkedIn" placeholder="https://linkedin.com/in/yourname" /></div>
+      <div class="sec-header" style="margin-top:8px">Form</div>
+      <div class="field"><label>Submit Button Text</label><input type="text" data-key="formBtnText" placeholder="Send Message →" /></div>
+      <div class="field"><label>Form Note</label><input type="text" data-key="formNote" placeholder="⚡ I typically respond within 4 hours on weekdays." /></div>
+      <div class="sec-header" style="margin-top:8px">Service Dropdown Options</div>
+      <div class="field"><label>Options (one per line)</label><textarea data-key="serviceOptions" rows="5" placeholder="Social Media Management&#10;Paid Ads&#10;Content Strategy"></textarea></div>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="panel" id="panel-design">
+      <div class="sec-header">Colors</div>
+      <div class="color-row">
+        <div class="field"><label>Accent (primary)</label><input type="color" data-key="colorAccent" value="#7c5cfc" /></div>
+        <div class="field"><label>Accent Light</label><input type="color" data-key="colorAccent2" value="#a78bfa" /></div>
+        <div class="field"><label>Background</label><input type="color" data-key="colorBg" value="#07070f" /></div>
+        <div class="field"><label>Surface</label><input type="color" data-key="colorSurface" value="#0f0f1a" /></div>
+        <div class="field"><label>Text</label><input type="color" data-key="colorText" value="#e2e2f0" /></div>
+        <div class="field"><label>Muted Text</label><input type="color" data-key="colorMuted" value="#7878a0" /></div>
+      </div>
+      <div class="sec-header" style="margin-top:8px">Typography</div>
+      <div class="field">
+        <label>Body Font</label>
+        <select data-key="fontBody">
+          <option value="Inter">Inter</option>
+          <option value="Poppins">Poppins</option>
+          <option value="Roboto">Roboto</option>
+          <option value="DM Sans">DM Sans</option>
+          <option value="Nunito">Nunito</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Display Font (headings)</label>
+        <select data-key="fontDisplay">
+          <option value="Syne">Syne</option>
+          <option value="Outfit">Outfit</option>
+          <option value="Space Grotesk">Space Grotesk</option>
+          <option value="Raleway">Raleway</option>
+          <option value="Inter">Inter</option>
+        </select>
+      </div>
+      <div class="sec-header" style="margin-top:8px">Layout</div>
+      <div class="field"><label>Border Radius (cards)</label>
+        <div class="range-row"><input type="range" min="0" max="32" data-key="borderRadius" /><span class="range-val" id="radiusVal">20px</span></div>
+      </div>
+      <div class="sec-header" style="margin-top:8px">Sections Visibility</div>
+      <div class="toggle-row"><label>Show Portfolio Section</label><label class="toggle"><input type="checkbox" data-key="showPortfolio" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Case Studies</label><label class="toggle"><input type="checkbox" data-key="showCases" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Testimonials</label><label class="toggle"><input type="checkbox" data-key="showTesti" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Skills Bars</label><label class="toggle"><input type="checkbox" data-key="showSkills" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Hero Grid Background</label><label class="toggle"><input type="checkbox" data-key="showGrid" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Process Section</label><label class="toggle"><input type="checkbox" data-key="showProcess" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show Tech Stack Section</label><label class="toggle"><input type="checkbox" data-key="showTechStack" checked /><span class="toggle__slider"></span></label></div>
+      <div class="toggle-row"><label>Show FAQ Section</label><label class="toggle"><input type="checkbox" data-key="showFaq" checked /><span class="toggle__slider"></span></label></div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="panel" id="panel-process">
+      <div class="sec-header">Section Labels</div>
+      <div class="field"><label>Section Label</label><input type="text" data-key="processLabel" placeholder="My Process" /></div>
+      <div class="field"><label>Heading (normal)</label><input type="text" data-key="processH2a" placeholder="How I turn your idea into a" /></div>
+      <div class="field"><label>Heading (gradient)</label><input type="text" data-key="processH2b" placeholder="shipped product" /></div>
+      <div class="sec-header" style="margin-top:8px">Steps</div>
+      <div class="item-list" id="processList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addProcessStep">+ Add Step</button>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="panel" id="panel-techstack">
+      <div class="sec-header">Section Labels</div>
+      <div class="field"><label>Section Label</label><input type="text" data-key="techLabel" placeholder="Tech Stack" /></div>
+      <div class="field"><label>Heading (normal)</label><input type="text" data-key="techH2a" placeholder="Tools I use to" /></div>
+      <div class="field"><label>Heading (gradient)</label><input type="text" data-key="techH2b" placeholder="build production systems" /></div>
+      <div class="sec-header" style="margin-top:8px">Groups</div>
+      <div class="item-list" id="techGroupList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addTechGroup">+ Add Group</button>
+    </div>
+
+    <!-- FAQ -->
+    <div class="panel" id="panel-faq">
+      <div class="sec-header">Section Labels</div>
+      <div class="field"><label>Section Label</label><input type="text" data-key="faqLabel" placeholder="FAQ" /></div>
+      <div class="field"><label>Heading (normal)</label><input type="text" data-key="faqH2a" placeholder="Questions clients" /></div>
+      <div class="field"><label>Heading (gradient)</label><input type="text" data-key="faqH2b" placeholder="always ask" /></div>
+      <div class="sec-header" style="margin-top:8px">Questions</div>
+      <div class="item-list" id="faqList"></div>
+      <button class="btn btn--ghost btn--full btn--sm" id="addFaq">+ Add Question</button>
+    </div>
+
+    </div><!-- /sidebar -->
+
+  <!-- PREVIEW -->
+  <div class="preview">
+    <iframe id="previewFrame" src="index.html" title="Portfolio Preview"></iframe>
+    <div class="preview__toolbar">
+      <button class="preview__btn active" id="viewDesktop">🖥 Desktop</button>
+      <button class="preview__btn" id="viewMobile">📱 Mobile</button>
+      <button class="preview__btn" id="refreshPreview">↺ Refresh</button>
+    </div>
+  </div>
+</div>
+
+<script src="editor.js"></script>
+</body>
+</html>
