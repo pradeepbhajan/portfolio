@@ -54,7 +54,7 @@ if (skillsSection) skillObserver.observe(skillsSection);
 // Server URL — change this after deploying server
 const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3001'
-  : 'https://portfolio-server-xxxx.onrender.com'; // ← Render ka URL yahan paste karo
+  : 'https://portfolio-server-8n7g.onrender.com';
 
 // Admin secret — change this to match your server/.env ADMIN_SECRET
 const ADMIN_SECRET = localStorage.getItem('admin_secret') || '';
